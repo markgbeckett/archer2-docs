@@ -104,6 +104,9 @@ Once you have done this, your SSH key will be added to your ARCHER2 account.
 
 Remember, you will need to use both an SSH key and password to log into ARCHER2 so you will also need to collect your initial password before you can log into ARCHER2. We cover this next.
 
+!!! note
+    If you want to connect to ARCHER2 from more than one machine, e.g. from your home laptop as well as your work laptop, you should generate an ssh key on each machine, and add each of the public keys into SAFE.  
+
 ### Initial passwords
 
 The SAFE web interface is used to provide your initial password for logging onto ARCHER2 (see the [SAFE
@@ -129,17 +132,17 @@ and debuggers when used in conjunction with an X client.
 You can use the following command from the [terminal](#command-line-terminal) window to login into
 ARCHER2:
 
-    ssh username@login.archer2.ac.uk
+    ssh username@login-4c.archer2.ac.uk
 
 You will first be prompted for your machine account password. Once you have entered your password successfully, you will then be prompted for the passphrase associated with your SSH key pair. You need to enter both credentials correctly to be able to access ARCHER2.
 
-!!! tip
+!!! warning
     If your SSH key pair is not stored in the default location (usually
     `~/.ssh/id_rsa`) on your local system, you may need to specify the path
     to the private part of the key wih the `-i` option to `ssh`. For
     example, if your key is in a file called `keys/id_rsa_ARCHER2` you would
     use the command `ssh -i keys/id_rsa_ARCHER2
-    username@login.archer2.ac.uk` to log in.
+    username@login-4c.archer2.ac.uk` to log in.
 
 !!! tip
     When you first log into ARCHER2, you will be prompted to change your
@@ -155,7 +158,7 @@ You will first be prompted for your machine account password. Once you have ente
 
 To allow remote programs, especially graphical applications to control your local display, such as being able to open up a new GUI window (such as for a debugger), use:
 
-    ssh -X username@login.archer2.ac.uk
+    ssh -X username@login-4c.archer2.ac.uk
 
 Some sites recommend using the `-Y` flag. While this can fix some
 compatibility issues, the `-X` flag is more secure.
@@ -183,17 +186,17 @@ Each remote site (or group of sites) can have an entry in this file
 which may look something like:
 
     Host archer2
-      HostName login.archer2.ac.uk
+      HostName login-4c.archer2.ac.uk
       User username
 
 (remember to replace `username` with your actual username\!).
 
 The `Host archer2` line defines a short name for the entry. In this
-case, instead of typing `ssh username@login.archer2.ac.uk` to access the
+case, instead of typing `ssh username@login-4c.archer2.ac.uk` to access the
 ARCHER2 login nodes, you could use `ssh archer2` instead. The remaining
 lines define the options for the `archer2` host.
 
-   - `Hostname login.archer2.ac.uk` - defines the full address of the
+   - `Hostname login-4c.archer2.ac.uk` - defines the full address of the
      host
    - `User username` - defines the username to use by default for this
      host (replace `username` with your own username on the remote
@@ -227,30 +230,30 @@ you can try and diagnose the issue. Some of these are collected below -
 if you are having difficulties connecting we suggest trying these before
 contacting the ARCHER2 service desk.
 
-### Use the `user@login.archer2.ac.uk` syntax rather than `-l user login.archer2.ac.uk`
+### Use the `user@login-4c.archer2.ac.uk` syntax rather than `-l user login-4c.archer2.ac.uk`
 
 We have seen a number of instances where people using the syntax
 
 ```
-ssh -l user login.archer2.ac.uk
+ssh -l user login-4c.archer2.ac.uk
 ```
 
 have not been able to connect properly and get prompted for a password many
 times. We have found that using the alternative syntax:
 
 ```
-ssh user@login.archer2.ac.uk
+ssh user@login-4c.archer2.ac.uk
 ```
 
 works more reliably. If you are using the `-l user` option to connect and 
-are seeing issues, then try using `user@login.archer2.ac.uk` instead.
+are seeing issues, then try using `user@login-4c.archer2.ac.uk` instead.
 
 ### Can you connect to the login node?
 
-Try the command `ping -c 3 login.archer2.ac.uk`. If you successfully
+Try the command `ping -c 3 login-4c.archer2.ac.uk`. If you successfully
 connect to the login node, the output should include:
 
-    --- login.archer2.ac.uk ping statistics ---
+    --- login-4c.archer2.ac.uk ping statistics ---
     3 packets transmitted, 3 received, 0% packet loss, time 38ms
 
 (the ping time '38ms' is not important). If not all packets are received
@@ -282,7 +285,7 @@ indicate a problem with your SSH key. Some things to check:
    - Is ssh using the correct key? You can check which keys are being
      found and offered by ssh using `ssh -vvv`. If your private key has
      a non-default name you can use the `-i` flag to provide it to ssh,
-     i.e. `ssh -i path/to/key username@login.archer2.ac.uk`.
+     i.e. `ssh -i path/to/key username@login-4c.archer2.ac.uk`.
  
    - Are you entering the passphrase correctly? You will be asked for
      your private key's passphrase first. If you enter it incorrectly
@@ -359,7 +362,7 @@ with the SSH key and password - further details are given below. To
 enable verbose output add the `-vvv` flag to your SSH command. For
 example:
 
-    ssh -vvv username@login.archer2.ac.uk
+    ssh -vvv username@login-4c.archer2.ac.uk
 
 The output is lengthy, but somewhere in there you should see lines
 similar to the following:
@@ -422,3 +425,17 @@ above.
 
 The equivalent information can be obtained in PuTTY by
 enabling all logging in settings.
+
+## Related Software 
+
+### tmux
+
+[tmux](https://github.com/tmux/tmux/wiki) is a multiplexer application 
+available on the ARCHER2 login nodes. It allows for multiple sessions to 
+be open concurrently and these sessions can be detached and run in the 
+background. Furthermore, sessions will continue to run after a user logs 
+off and can be reattached to upon logging in again. It is particularly 
+useful if you are connecting to ARCHER2 on an unstable Internet connection 
+or if you wish to keep an arrangement of terminal applications running 
+while you disconnect your client from the Internet -- for example, when 
+moving between your home and workplace. 

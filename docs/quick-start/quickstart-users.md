@@ -69,7 +69,7 @@ How you generate your SSH key pair depends on which operating system you
 use and which SSH client you use to connect to ARCHER2. We will not
 cover the details on generating an SSH key pair here, but detailed
 information on this topic is available in the
-[ARCHER2 User and Best Practice Guide](https://docs.archer2.ac.uk/user-guide/connecting/).
+[ARCHER2 User and Best Practice Guide](https://docs.archer2.ac.uk/user-guide/connecting).
 
 After generating your SSH key pair, add the public part to your login
 account using SAFE:
@@ -91,6 +91,9 @@ account.
 Remember, you will need to use both an SSH key and password to log into
 ARCHER2 so you will also need to collect your initial password before
 you can log into ARCHER2 for the first time. We cover this next.
+
+!!! note
+    If you want to connect to ARCHER2 from more than one machine, e.g. from your home laptop as well as your work laptop, you should generate an ssh key on each machine, and add each of the public keys into SAFE.  
 
 ### Collecting your ARCHER2 password
 
@@ -116,9 +119,9 @@ Policy](https://www.archer2.ac.uk/about/policies/passwords_usernames.html).
 
 ## Login to ARCHER2
 
-To log into ARCHER2 you should use the `login.archer2.ac.uk` address:
+To log into ARCHER2 you should use the `login-4c.archer2.ac.uk` address:
 
-    ssh [userID]@login.archer2.ac.uk
+    ssh [userID]@login-4c.archer2.ac.uk
 
 You will first be prompted for your machine account password. Once you
 have entered your password successfully, you will then be prompted for
@@ -131,7 +134,7 @@ credentials correctly to be able to access ARCHER2.
     to the private part of the key wih the `-i` option to `ssh`. For
     example, if your key is in a file called `keys/id_rsa_archer2` you would
     use the command `ssh -i keys/id_rsa_archer2
-    username@login.archer2.ac.uk` to log in.
+    username@login-4c.archer2.ac.uk` to log in.
 
 !!! tip
     When you first log into ARCHER2, you will be prompted to change your

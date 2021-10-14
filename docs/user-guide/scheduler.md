@@ -188,7 +188,7 @@ lists the active QoS on ARCHER2.
 | QoS        | Max Nodes Per Job | Max Walltime | Jobs Queued | Jobs Running | Partition(s) | Notes |
 | ---------- | ----------------- | ------------ | ----------- | ------------ | ------------ | ------|
 | standard   | 256               | 24 hrs       | 64          | 16           | standard     | Maximum of 256 nodes in use by any one user at any time |
-| short      | 8                 | 20 mins      | 16           | 4            | standard     | Only available Mon-Fri UK Time |
+| short      | 8                 | 20 mins      | 16           | 4            | standard     | |
 | long       | 64                | 48 hrs       | 16          | 16           | standard     | Minimum walltime of 24 hrs |
 | largescale | 940               | 3 hrs        | 4           | 1            | standard     | Minimum job size of 257 nodes |
 | lowpriority | 256               | 3 hrs        | 4           | 1            | standard     | Maximum of 256 nodes in use by any one user at any time. Jobs not charged but requires at least 1 CU in budget to use. |
@@ -633,7 +633,6 @@ MPI process. This results in all 128 physical cores per node being used.
 #SBATCH --job-name=Example_MPI_Job
 #SBATCH --time=0:20:0
 #SBATCH --nodes=4
-#SBATCH --ntasks=32
 #SBATCH --tasks-per-node=8
 #SBATCH --cpus-per-task=16
 
@@ -1435,17 +1434,30 @@ options:
 
 ## Reservations
 
-Reservations are available on ARCHER2. These allow users to reserve a number of nodes for a specified length of time starting at a particular time on the system.
+Reservations are available on ARCHER2. These allow users to reserve a number of nodes
+for a specified length of time starting at a particular time on the system.
 
-Reservations require justification. They will only be approved if the request could not be fulfilled with the standard queues. For instance, you require a job/jobs to run at a particular time e.g. for a demonstration or course.
+Reservations require justification. They will only be approved if the request could not
+be fulfilled with the standard queues. For instance, you require a job/jobs to run at a
+particular time e.g. for a demonstration or course.
 
 !!! note
-    Reservation requests must be submitted at least 60 hours in advance of the reservation start time. If requesting a reservation for a Monday at 18:00, please ensure this is received by the Friday at 12:00 the latest. The same applies over Service Holidays.
+    Reservation requests must be submitted at least 60 hours in advance of the reservation
+    start time. If requesting a reservation for a Monday at 18:00, please ensure this is
+    received by the Friday at 12:00 the latest. The same applies over Service Holidays.
 
-!!! Note
-    Reservations are only valid for standard compute nodes, high memory compute nodes and/or PP nodes cannot be included in reservations.
+!!! note
+    Reservations are only valid for standard compute nodes, high memory compute nodes
+    and/or PP nodes cannot be included in reservations.
 
-Reservations will be charged at 1.5 times the usual CU rate and you will be charged the full rate for the entire reservation at the time of booking, whether or not you use the nodes for the full time. In addition, you will not be refunded the CUs if you fail to use them due to a job crash unless this crash is due to a system failure.
+Reservations will be charged at 1.5 times the usual CU rate and our policy is that they
+will be charged the full rate for the entire reservation at the time of booking, whether
+or not you use the nodes for the full time. In addition, you will not be refunded the
+CUs if you fail to use them due to a job crash unless this crash is due to a system failure.
+
+!!! bug
+    At the moment, we are only able to charge for jobs in reservations, not for the full 
+    reservation itself. Jobs in reservations are charged at 1.5x the standard rate.
 
 To request a reservation please [contact the ARCHER2 Service Desk](mailto:support@archer2.ac.uk).
 You need to provide the following:
@@ -1458,11 +1470,11 @@ You need to provide the following:
 
 Your request will be checked by the ARCHER2 User Administration team and, if approved, you will be provided a reservation ID which can be used on the system. To submit jobs to a reservation, you need to add `--reservation=<reservation ID>` to your job submission script or command.
 
-!!! Note:
+!!! important
+    You must have at least 1 CU in the budget to submit a job on ARCHER2, even to a pre-paid reservation.
 
-You must have at least 1 CU in the budget to submit a job on ARCHER2, even to a pre-paid reservation.
-
-You can submit jobs to a reservation as soon as the reservation has been set up; jobs will remain queued until the reservation starts.
+!!! tip
+    You can submit jobs to a reservation as soon as the reservation has been set up; jobs will remain queued until the reservation starts.
 
 ## Best practices for job submission
 

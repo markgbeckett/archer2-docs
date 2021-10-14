@@ -10,7 +10,9 @@ white papers), links to instruction manuals and further information.
     You may also find the [Data analysis section of the User and
     Best Practice Guide](../user-guide/data/) useful.
 
-!!! note
-    Links to the different data analysis tools will be added as soon
-    as they are available.
+The tools currently available in this section are:
+
+- [ParaView](paraview.md): A data visualisation and analysis package 
+- [R](cray-r.md): The R statistical language
+- [VisiData](visidata.md): An interactive multitool for tabular data
 
