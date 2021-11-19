@@ -7,7 +7,17 @@ active investigation by HPE Cray and the wider service.
 ## Open Issues
 
 
+### Occasionally larger jobs (requiring greater than 128 nodes) will run slow or fail (Added: 2021-11-18)
+
+- **Systems affected:** ARCHER2 full system
+
+The CSE team has seen instances when larger jobs (those involving more than 128 nodes) will run slow (perhaps two or three times slower than normally) or not finish (because the slowness causes a time-out). In system testing, we saw this problem for a small number of applications (most notably, LAMMPS) on around 10--20% of jobs: the issue worsens as the job size increases.
+
+The issue is being actively investigated by HPE, as a priority. At this time, there is no known work-around, though it is usually possible to resubmit the affected job successfully.
+
 ### Error message: `No space left on device` (Added: 2021-07-20)
+
+- **Systems affected:** ARCHER2 4-cabinet system
 
 Following an issue with te Lustre file system, there may be a number of files on the
 system that have stale active file handles on the Lustre server. Attempts to overwrite
@@ -26,7 +36,9 @@ for this issue:
 
 ### PETSc fails when used on more than one node (Added: 2021-06-21)
 
-There is a bug in the default HPE Cray MPICH which leades to failures from PETSc
+- **Systems affected:** ARCHER2 4-cabinet system
+
+There is a bug in the default HPE Cray MPICH which leads to failures from PETSc
 when running on more than one node.
 
 **Workaround:** switch to a newer version of HPE Cray MPICH. To do this, modify
@@ -40,12 +52,14 @@ export LD_LIBRARY_PATH=${CRAY_LD_LIBRARY_PATH}:${LD_LIBRARY_PATH}
 
 ### HPE Cray `perftools` modules not available by default (Added: 2021-04-27)
 
+- **Systems affected:** ARCHER2 4-cabinet system
+
 The HPE Cray `perftools` modules are no longer available by default on login to
 ARCHER2 or on the compute nodes when you run a job. This is being investigated
 and we hope to fix the issue soon.
 
 **Workarounds** You can access the `perftools` modules by restoring a different
-compiler environment or by switching to a different Programming Environment 
+compiler environment or by switching to a different Programming Environment
 release.
 
 *Option 1: Restoring a different compiler environment*
@@ -81,17 +95,22 @@ using different PE releases [is available in the User and Best Practice Guide](.
 
 
 ### Research Software
+
+- **Systems affected:** ARCHER2 full system, ARCHER2 4-cabinet system
+
 There are several outstanding issues for the centrally installed Research Software:
 
 - **PyChemShell** is not yet available. We are working with the code developers to address this.
-- **VMD** is not yet available. We hope to provide a suitable installation in the near future.
 - **PLUMED** is not yet available. Currently, we recommend affected users to install a local version of the software.
 
 Users should also check individual software pages, for known limitations/ caveats, for the use of software on the Cray EX platform and Cray Linux Environment.
 
 ### `stat-view` not working
+
+- **Systems affected:** ARCHER2 4-cabinet system
+
 The `stat-view` utility from the `cray-stat` module does not currently
-work due to missing dependencies within the HPE Cray software stack. If you 
+work due to missing dependencies within the HPE Cray software stack. If you
 try to use the tool, you will see errors similar too:
 
 ```
@@ -120,6 +139,9 @@ xdot can be downloaded from https://github.com/jrfonseca/xdot.py
 The current workaround is to use `/work/y02/shared/stat-view-workaround/stat-view` instead.
 
 ### Issues with RPATH for non-default library versions
+
+- **Systems affected:** ARCHER2 full system, ARCHER2 4-cabinet system
+
 When you compile applications against non-default versions of libraries within the HPE
 Cray software stack and use the environment variable `CRAY_ADD_RPATH=yes` to try and encode
 the paths to these libraries within the binary this will not be respected at runtime and
@@ -137,8 +159,10 @@ see [the description in the User and Best Practice Guide](../user-guide/dev-envi
 
 ### Memory leak leads to job fail by out of memory (OOM) error (Updated: 2021-04-26)
 
-Your program compiles and seems to run fine, but after some time (at least 10 
-minutes), it crashes with an out-of-memory (OOM) error. The job crashes more 
+- **Systems affected:** ARCHER2 4-cabinet system
+
+Your program compiles and seems to run fine, but after some time (at least 10
+minutes), it crashes with an out-of-memory (OOM) error. The job crashes more
 quickly when run on a smaller number of nodes.
 
 The workaround for this issue is to use the newer HPE Cray Programming Environment
@@ -146,6 +170,8 @@ release 21.03. Instructions on using a non-default programming environment relea
 [are available in the User and Best Practice Guide](../user-guide/dev-environment.md#switching-to-a-different-hpe-cray-programming-environment-release)
 
 ### MPI `UCX ERROR: ivb_reg_mr`
+
+- **Systems affected:** ARCHER2 4-cabinet system
 
 If you are using the UCX layer for MPI communication you may see an error such as:
 
@@ -178,9 +204,27 @@ export UCX_IB_REG_METHODS=direct
 !!! note
     Setting this flag may have an impact on code performance.
 
+
+
+### AOCC compiler fails to compile with NetCDF (Added: 2021-11-18)
+
+- **Systems affected:** ARCHER2 full system
+
+There is currently a problem with the module file which means cray-netcdf-hdf5parallel will not operate correctly in PrgEnv-aocc. An example of the error seen is:  
+
+```
+F90-F-0004-Corrupt or Old Module file /opt/cray/pe/netcdf-hdf5parallel/4.7.4.3/crayclang/9.1/include/netcdf.mod (netcdf.F90: 8)
+```
+
+The current workaround for this is to load module epcc-netcdf-hdf5parallel instead if PrgEnv-aocc is required.
+
+
 ## Recently Resolved Issues
 
 ### Singularity and CMake 3.x
+
+- **Systems affected:** ARCHER2 4-cabinet system
+
 Certain cmake variables need to be set before a containerised cmake can find
 MPI libraries located on the host.
 
