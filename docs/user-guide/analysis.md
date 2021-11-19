@@ -141,11 +141,11 @@ memory per core (which is a little less than 2 GB), when specifying
 cores only, and 1 core when specifying the memory only.
 
 !!! note
-    Each data analysis node is fitted with 128 GB of memory. However,
+    Each data analysis node is fitted with 512 GB of memory. However,
     a small amount of this memory is needed for system processes,
-    which is why we set an upper limit of 125 GB. This is also why the
+    which is why we set an upper limit of 125 GB per user (a user is
+    limited to one quarter of the RAM on a node). This is also why the
     per-core default memory allocation is slightly less than 2 GB.
-
 
 !!! note
     When running on the data analysis nodes, you must always specify either 
@@ -161,13 +161,13 @@ one for the compute nodes. The main differences are that you need to use
 `--partition=serial` and `--qos=serial`, specify the number of tasks
 (rather than the number of nodes) and/or specify the amount of memory
 you want. For example, to use a single core and 4 GB of memory, you 
-would use:
+would use something like:
 
 ```slurm
 #!/bin/bash
 
 # Slurm job options (job-name, job time)
-#SBATCH --job-name=Example_MPI_Job
+#SBATCH --job-name=data_analysis
 #SBATCH --time=0:20:0
 #SBATCH --ntasks=1
 
@@ -185,7 +185,9 @@ would use:
 #   using threading.
 export OMP_NUM_THREADS=1
 
-./my_executable.x
+module load cray-python
+
+python my_analysis_script.py
 ```
 
 ### Interactive session on the data analysis nodes
