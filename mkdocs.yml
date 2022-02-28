@@ -59,6 +59,7 @@ nav:
     - "Debugging": user-guide/debug.md
     - "Profiling": user-guide/profile.md
     - "Performance tuning": user-guide/tuning.md
+    - "Energy monitoring": user-guide/energy-monitoring.md
   - "Research Software":
     - "Overview": research-software/index.md
     - "CASTEP": research-software/castep/castep.md
@@ -105,10 +106,10 @@ nav:
     - "ParaView": data-tools/paraview.md
     - "R": data-tools/cray-r.md
     - "VisiData": data-tools/visidata.md
-  - "Essential Skills": essentials/index.md
   - "Other Software":
     - "Overview": other-software/index.md  
     - "CRYSTAL": other-software/crystal.md
-
+  - "Essential Skills": essentials/index.md
+  - "ARCHER2 and Publications": publish/index.md
 
 
